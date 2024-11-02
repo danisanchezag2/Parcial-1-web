@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PlantService } from '../plant.service';
+import { Plant } from '../plant';
 
 @Component({
   selector: 'app-plant-list',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plant-list.component.css']
 })
 export class PlantListComponent implements OnInit {
-
-  constructor() { }
+  plants: Plant[] | undefined;
+  constructor(private readonly plantService:PlantService) { }
 
   ngOnInit() {
+    this.plantService.getPlants().subscribe(plants => {
+      this.plants = plants;
+    });
   }
 
 }
